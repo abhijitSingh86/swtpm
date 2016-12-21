@@ -56,7 +56,8 @@ endif
 if WITH_GNUTLS
 TESTS += \
 	test_swtpm_cert \
-	test_tpm2_swtpm_cert
+	test_tpm2_swtpm_cert \
+	test_tpm2_swtpm_cert_ecc
 if WITH_SWTPM_SETUP
 TESTS += \
 	test_swtpm_setup_create_cert \
