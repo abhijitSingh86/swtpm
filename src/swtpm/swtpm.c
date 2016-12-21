@@ -156,6 +156,7 @@ static void usage(FILE *file, const char *prgname, const char *iface)
     "                 : not-need-init: commands can be sent without needing to\n"
     "                   send an INIT via control channel;\n"
     "-r|--runas <user>: change to the given user\n"
+    "--tpm2           : choose TPM2 functionality\n"
     "-h|--help        : display this help screen and terminate\n"
     "\n",
     prgname, iface);
@@ -209,8 +210,10 @@ int swtpm_main(int argc, char **argv, const char *prgname, const char *iface)
         {"tpmstate"  , required_argument, 0, 's'},
         {"ctrl"      , required_argument, 0, 'C'},
         {"flags"     , required_argument, 0, 'F'},
+        {"tpm2"      ,       no_argument, 0, '2'},
         {NULL        , 0                , 0, 0  },
     };
+    TPMLIB_TPMVersion tpmversion = TPMLIB_TPM_VERSION_1_2;
 
     log_set_prefix("swtpm: ");
 
@@ -321,6 +324,10 @@ int swtpm_main(int argc, char **argv, const char *prgname, const char *iface)
             flagsdata = optarg;
             break;
 
+        case '2':
+            tpmversion = TPMLIB_TPM_VERSION_2;
+            break;
+
         case 'h':
             usage(stdout, prgname, iface);
             exit(EXIT_SUCCESS);
@@ -346,6 +353,8 @@ int swtpm_main(int argc, char **argv, const char *prgname, const char *iface)
         if (change_process_owner(runas) < 0)
             return EXIT_FAILURE;
     }
+
+    SWTPM_NVRAM_Set_TPMVersion(tpmversion);
 
     if (handle_log_options(logdata) < 0 ||
         handle_key_options(keydata) < 0 ||
@@ -423,7 +432,7 @@ int swtpm_main(int argc, char **argv, const char *prgname, const char *iface)
 #endif
 
     if (!need_init_cmd) {
-        if ((rc = tpmlib_start(&callbacks, 0)))
+        if ((rc = tpmlib_start(&callbacks, 0, tpmversion)))
             goto error_no_tpm;
         tpm_running = true;
     }

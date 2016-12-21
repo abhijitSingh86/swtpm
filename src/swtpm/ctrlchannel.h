@@ -51,6 +51,7 @@ int ctrlchannel_process_fd(int fd,
                            bool *terminate,
                            TPM_MODIFIER_INDICATOR *locality,
                            bool *tpm_running,
-                           uint32_t locality_flags);
+                           uint32_t locality_flags,
+                           TPMLIB_TPMVersion tpmversion);
 
 #endif /* _SWTPM_CTRLCHANNEL_H_ */
