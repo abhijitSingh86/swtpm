@@ -40,6 +40,7 @@ TESTS += \
 	test_tpm2_hashing2 \
 	test_tpm2_hashing3 \
 	test_tpm2_savestate \
+	test_tpm2_save_load_state_3 \
 	test_tpm2_wrongorder \
 	test_tpm2_probe \
 	\
