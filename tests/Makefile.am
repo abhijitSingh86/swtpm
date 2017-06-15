@@ -39,6 +39,7 @@ TESTS += \
 	test_tpm2_hashing \
 	test_tpm2_hashing2 \
 	test_tpm2_hashing3 \
+	test_tpm2_resume_volatile \
 	test_tpm2_savestate \
 	test_tpm2_save_load_state_3 \
 	test_tpm2_volatilestate \
