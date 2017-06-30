@@ -33,6 +33,7 @@ TESTS += \
 	test_wrongorder
 
 TESTS += \
+	test_tpm2_encrypted_state \
 	test_tpm2_init \
 	test_tpm2_getcap \
 	test_tpm2_locality \
@@ -42,6 +43,7 @@ TESTS += \
 	test_tpm2_migration_key \
 	test_tpm2_resume_volatile \
 	test_tpm2_savestate \
+	test_tpm2_save_load_encrypted_state \
 	test_tpm2_save_load_state_3 \
 	test_tpm2_volatilestate \
 	test_tpm2_wrongorder \
