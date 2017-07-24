@@ -212,13 +212,13 @@ function test_pcr_allocation()
 
 		for ((ha = 0; ha < 24; ha++)); do
 			${TOOLSPATH}/${PREFIX}pcrread -ha ${ha} -halg sha1 > $TMPFILE
-			if [ -z "$(grep "^count 1$" $TMPFILE)" ]; then
+			if [ -z "$(grep "^count 1.*$" $TMPFILE)" ]; then
 				echo "Error: PCR ${ha} in SHA1 bank should be available for read before reboot"
 				cat $TMPFILE
 				exit 1
 			fi
 			${TOOLSPATH}/${PREFIX}pcrread -ha ${ha} -halg sha256 > $TMPFILE
-			if [ -z "$(grep "^count 1$" $TMPFILE)" ]; then
+			if [ -z "$(grep "^count 1.*$" $TMPFILE)" ]; then
 				echo "Error: PCR ${ha} in SHA256 bank should be available for read before reboot"
 				cat $TMPFILE
 				exit 1
@@ -231,14 +231,14 @@ function test_pcr_allocation()
 
 		for ((ha = 0; ha < 24; ha++)); do
 			${TOOLSPATH}/${PREFIX}pcrread -ha ${ha} -halg sha1 > $TMPFILE
-			if [ -z "$(grep "^count 0$" $TMPFILE)" ]; then
+			if [ -z "$(grep "^count 0.*$" $TMPFILE)" ]; then
 				echo "Error: PCR ${ha} in SHA1 bank should be unavailable for read after reboot"
 				cat $TMPFILE
 				exit 1
 			fi
 
 			${TOOLSPATH}/${PREFIX}pcrread -ha ${ha} -halg sha256 > $TMPFILE
-			if [ -z "$(grep "^count 1$" $TMPFILE)" ]; then
+			if [ -z "$(grep "^count 1.*$" $TMPFILE)" ]; then
 				echo "Error: PCR ${ha} in SHA256 bank should be available for read after reboot"
 				exit 1
 			fi
